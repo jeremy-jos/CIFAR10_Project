@@ -22,6 +22,7 @@ In order to use this repository, you should:
 
 In order to train the model on the CIFAR-10 dataset:
 
+- Run the main.py file:
     ```bash
     cd [root of project]
     python main.py
@@ -29,8 +30,27 @@ In order to train the model on the CIFAR-10 dataset:
 
 ## CNN Model
 
-For this project, I ended up using a simple CNN model ...
+For this project, I ended up using a simple CNN model inspired by the VGG models that is made up of 2 blocks, each block containing:
+        - two 2D Convolutional layer that use:
+            - 32 and 64 filters for the first and second blocks
+            - (3,3) size filters
+            - Rectified Linear Unit (ReLU) activation
+            - He uniform variance scaling initializer
+            - padding to be sure that the shape of the outputs matches that of the inputs
+        - a 2D Polling Layer that downscales the image by 2 horizontally and vertically
+        - a Dropout Layer to add some regularization to the model. I added more dropout to the second block than to the first
 
+    These blocks are followed by a classifier that is made of:
+        - a Flatten layer to flatten the input for the following Dense layer
+        - a first Dense layer which is a usual fully connected neural network layer with ReLU activation
+        - a final Dense layer that generates predictions with a softmax activation
+
+I trained the model by using:
+        - Stochastic Gradient Descent Optimizer with learning rate and momentum defined in parameters file
+        - a categorical crossentropy loss because we have a multi-class classification task
+        - an accuracy metric
+        - a batch size and number of epochs defined in the parameters file
+        - shuffling of the training data before each epoch
 
 ## Results
 
@@ -39,4 +59,4 @@ With this model, trained with batch_size = 32 and epochs = 50, I obtained the fo
     - Loss =
     - Accuracy =
 
-![](outputs/test_model_plots.png "Learning Curves")
+![](outputs/2_blocks_4_epochs.png "Learning Curves")

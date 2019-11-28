@@ -9,10 +9,10 @@ def train_model(model, x_train, y_train, x_test, y_test):
     """
     Trains defined model by using:
         - Stochastic Gradient Descent Optimizer with learning rate and momentum defined in parameters file
-        - a categorical crossentropy loss
+        - a categorical crossentropy loss because we have a multi-class classification task
         - an accuracy metric
         - a batch size and number of epochs defined in the parameters file
-        - shuffling the training data before each epoch
+        - shuffling of the training data before each epoch
     """
 
     # Define Stochastic Gradient Descent Optimizer

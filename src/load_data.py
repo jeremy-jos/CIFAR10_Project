@@ -7,7 +7,7 @@ from src.parameters import CONSTANTS
 def load_data():
     """
     Function to load the cifar10 dataset. Rather than downloading the files from the project's website and including
-        them in the repo, I use the dataset dowload already available in Keras out of simplicity.
+        them in the repo, I used the dataset download already available in Keras out of simplicity.
 
     Returns:
        Tuple containing the training data and labels, and the testing data and labels

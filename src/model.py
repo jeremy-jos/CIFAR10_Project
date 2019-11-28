@@ -6,19 +6,22 @@ from src.parameters import CONSTANTS
 
 def classifier_model(x_train):
     """
-    Defines structure of CNN classifier model. The structure I coded is a sequential model inspired by the VGG models
-    that is made up of N blocks, each block containing:
+    Defines structure of CNN classifier model.
+
+    The structure I coded is a sequential model inspired by the VGG models that is made up of 2 blocks, each block containing:
         - two 2D Convolutional layer that use:
-            - (3,3) filters
+            - 32 and 64 filters for the first and second blocks
+            - (3,3) size filters
             - Rectified Linear Unit (ReLU) activation
             - He uniform variance scaling initializer
             - padding to be sure that the shape of the outputs matches that of the inputs
         - a 2D Polling Layer that downscales the image by 2 horizontally and vertically
+        - a Dropout Layer to add some regularization to the model. I added more dropout to the second block than to the first
+
     These blocks are followed by a classifier that is made of:
         - a Flatten layer to flatten the input for the following Dense layer
         - a first Dense layer which is a usual fully connected neural network layer with ReLU activation
         - a final Dense layer that generates predictions with a softmax activation
-
     """
 
     # Sequential Model
@@ -30,6 +33,13 @@ def classifier_model(x_train):
     )
     model.add(Conv2D(32, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
     model.add(MaxPooling2D((2, 2)))
+    model.add(Dropout(0.25))
+
+    # Second Block
+    model.add(Conv2D(64, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
+    model.add(Conv2D(64, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
+    model.add(MaxPooling2D((2, 2)))
+    model.add(Dropout(0.35))
 
     # Classifier
     model.add(Flatten())
