@@ -45,10 +45,12 @@ These blocks are followed by a classifier that is made of:
 - a first Dense layer which is a usual fully connected neural network layer with ReLU activation
 - a final Dense layer that generates predictions with a softmax activation
 
-I trained the model by using:
+The model is compiled with:
 - Stochastic Gradient Descent Optimizer with learning rate and momentum defined in parameters file
 - a categorical crossentropy loss because we have a multi-class classification task
 - an accuracy metric
+
+I trained the model by using:
 - a batch size and number of epochs defined in the parameters file
 - shuffling of the training data before each epoch
 

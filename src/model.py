@@ -1,10 +1,11 @@
 from keras.models import Sequential
+from keras.optimizers import SGD
 from keras.layers import Conv2D, Dense, Dropout, Flatten, MaxPooling2D
 
-from src.parameters import CONSTANTS
+from src.parameters import CONSTANTS, TRAINING_PARAMETERS
 
 
-def classifier_model(x_train):
+def classifier_model():
     """
     Defines structure of CNN classifier model.
 
@@ -22,6 +23,11 @@ def classifier_model(x_train):
         - a Flatten layer to flatten the input for the following Dense layer
         - a first Dense layer which is a usual fully connected neural network layer with ReLU activation
         - a final Dense layer that generates predictions with a softmax activation
+
+    The model is compiled with :
+        - a categorical crossentropy loss given the multiclass task
+        - a Stochastic Gradient Descent optimizer
+        - an accuracy metric
     """
 
     # Sequential Model
@@ -29,7 +35,7 @@ def classifier_model(x_train):
 
     # First Block
     model.add(Conv2D(
-        32, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same', input_shape=x_train.shape[1:])
+        32, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same', input_shape=CONSTANTS['input_shape'])
     )
     model.add(Conv2D(32, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
     model.add(MaxPooling2D((2, 2)))
@@ -45,5 +51,15 @@ def classifier_model(x_train):
     model.add(Flatten())
     model.add(Dense(128, activation='relu', kernel_initializer='he_uniform'))
     model.add(Dense(CONSTANTS['num_classes'], activation='softmax'))
+
+    # Compile Model using Stochastic Gradient Descent Optimizer
+    opt = SGD(
+        lr=TRAINING_PARAMETERS['sgd_learning_rate'],
+        momentum=TRAINING_PARAMETERS['sgd_momentum']
+    )
+
+    model.compile(loss='categorical_crossentropy',
+                  optimizer=opt,
+                  metrics=['accuracy'])
 
     return model
