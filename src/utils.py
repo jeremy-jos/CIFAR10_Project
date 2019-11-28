@@ -22,6 +22,7 @@ def plot_learning_curves(model_history, model_name):
 	plt.plot(model_history.history['val_accuracy'], color='orange', label='test')
 
 	# save plot to file
+	plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=None, hspace=1)
 	plots_file = f"{CONSTANTS['outputs_dir']}/{model_name}_plots.png"
 	plt.savefig(plots_file)
 	plt.close()

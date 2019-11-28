@@ -21,6 +21,7 @@ In order to use this repository, you should:
     ```
 
 In order to train the model on the CIFAR-10 dataset:
+
     ```bash
     cd [root of project]
     python main.py

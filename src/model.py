@@ -6,22 +6,32 @@ from src.parameters import CONSTANTS
 
 def classifier_model(x_train):
     """
-    Define structure of CNN classifier model. The structure I coded is a sequential model with:
+    Defines structure of CNN classifier model. The structure I coded is a sequential model inspired by the VGG models
+    that is made up of N blocks, each block containing:
         - two 2D Convolutional layer that use:
+            - (3,3) filters
             - Rectified Linear Unit (ReLU) activation
             - He uniform variance scaling initializer
-        - a 2D Polling Layer that downscale the image by 2 horizontally and vertically
-        - a Flatten layer to flatten the intput for the following Dense layer
-        - a Dense layer which is a usual fully connected neural network layer
+            - padding to be sure that the shape of the outputs matches that of the inputs
+        - a 2D Polling Layer that downscales the image by 2 horizontally and vertically
+    These blocks are followed by a classifier that is made of:
+        - a Flatten layer to flatten the input for the following Dense layer
+        - a first Dense layer which is a usual fully connected neural network layer with ReLU activation
+        - a final Dense layer that generates predictions with a softmax activation
 
     """
 
+    # Sequential Model
     model = Sequential()
+
+    # First Block
     model.add(Conv2D(
         32, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same', input_shape=x_train.shape[1:])
     )
     model.add(Conv2D(32, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
     model.add(MaxPooling2D((2, 2)))
+
+    # Classifier
     model.add(Flatten())
     model.add(Dense(128, activation='relu', kernel_initializer='he_uniform'))
     model.add(Dense(CONSTANTS['num_classes'], activation='softmax'))

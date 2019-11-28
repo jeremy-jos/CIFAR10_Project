@@ -6,11 +6,22 @@ from src.parameters import CONSTANTS, TRAINING_PARAMETERS
 
 
 def train_model(model, x_train, y_train, x_test, y_test):
+    """
+    Trains defined model by using:
+        - Stochastic Gradient Descent Optimizer with learning rate and momentum defined in parameters file
+        - a categorical crossentropy loss
+        - an accuracy metric
+        - a batch size and number of epochs defined in the parameters file
+        - shuffling the training data before each epoch
+    """
 
-    # initiate RMSprop optimizer
-    opt = SGD(lr=0.001, momentum=0.9)
+    # Define Stochastic Gradient Descent Optimizer
+    opt = SGD(
+        lr=TRAINING_PARAMETERS['sgd_learning_rate'],
+        momentum=TRAINING_PARAMETERS['sgd_momentum']
+    )
 
-    # Let's train the model using RMSprop
+    # Train Model
     model.compile(loss='categorical_crossentropy',
                   optimizer=opt,
                   metrics=['accuracy'])
@@ -25,12 +36,18 @@ def train_model(model, x_train, y_train, x_test, y_test):
 
 
 def save_model(model, model_name):
+    """
+    Saves trained model as .h5 file
+    """
 
-    model_path = os.path.join(CONSTANTS['saved_models_dir'], model_name)
+    model_path = os.path.join(CONSTANTS['saved_models_dir'], f"{model_name}.h5")
     model.save(model_path)
 
 
 def evaluate_model(model, x_test, y_test):
+    """
+    Evaluates trained model's loss and accuracy on test dataset and prints results
+    """
 
     loss, accuracy = model.evaluate(x_test, y_test)
     print('Model test loss:', loss)
