@@ -22,16 +22,24 @@ In order to use this repository, you should:
 
 In order to train the model on the CIFAR-10 dataset:
 
-- Run the main.py file:
+- Run the train_main.py file:
     ```bash
     cd [root of project]
-    python main.py
+    python train_main.py
+    ```
+
+In order to use a trained model to predict an image's class:
+
+- Run the predict_main.py file:
+    ```bash
+    cd [root of project]
+    python predict_main.py
     ```
 
 ## CNN Model
 
 For this project, I ended up using a simple CNN model inspired by the VGG models that is made up of 2 blocks, each block containing:
-- two 2D Convolutional layer that use:
+- two 2D Convolutional layers that use:
     * 32 and 64 filters for the first and second blocks
     * (3,3) size filters
     * Rectified Linear Unit (ReLU) activation
@@ -59,7 +67,7 @@ I trained the model by using:
 
 With this model, trained with batch_size = 32 and epochs = 50, I obtained the following results:
 
-    - Loss =
-    - Accuracy =
+    - Loss = 0.74
+    - Accuracy =  0.76
 
-![](outputs/2_blocks_4_epochs.png "Learning Curves")
+![](outputs/2_blocks_20_epochs.png "Learning Curves")

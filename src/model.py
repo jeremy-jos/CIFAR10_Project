@@ -10,7 +10,7 @@ def classifier_model():
     Defines structure of CNN classifier model.
 
     The structure I coded is a sequential model inspired by the VGG models that is made up of 2 blocks, each block containing:
-        - two 2D Convolutional layer that use:
+        - two 2D Convolutional layers that use:
             - 32 and 64 filters for the first and second blocks
             - (3,3) size filters
             - Rectified Linear Unit (ReLU) activation

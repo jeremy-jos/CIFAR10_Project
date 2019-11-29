@@ -26,6 +26,7 @@ def save_model(model, model_name):
 
     model_path = os.path.join(CONSTANTS['saved_models_dir'], f"{model_name}.h5")
     model.save(model_path)
+    print(f'Model saved at : {model_path}')
 
 
 def evaluate_model(model, x_test, y_test):

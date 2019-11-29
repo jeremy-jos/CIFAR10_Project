@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 from keras.models import load_model
 
-from src.parameters import CONSTANTS
+from src.parameters import CONSTANTS, CIFAR10_LABELS
 
 
 def load_saved_model(model_name):
@@ -22,6 +22,7 @@ def load_image(image_name):
 
     image_path = f"{CONSTANTS['images_dir']}/{image_name}.jpg"
     image = cv2.imread(image_path)
+
     return cv2.resize(image, dsize=CONSTANTS['input_shape'][:2], interpolation=cv2.INTER_CUBIC)
 
 
@@ -32,4 +33,11 @@ def predict_class(image, model):
 
     # Convert image to right input format
     image_input = np.array([image])
-    return model.predict(image_input)
+
+    # Use model to generate prediction output
+    prediction = model.predict(image_input)
+
+    # Get predicted class name from the prediction output
+    predicted_class = CIFAR10_LABELS[str(np.argmax(prediction))]
+
+    return predicted_class
