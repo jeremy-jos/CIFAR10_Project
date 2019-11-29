@@ -10,25 +10,25 @@ def classifier_model():
     Defines structure of CNN classifier model.
 
     The structure I coded is a sequential model inspired by the VGG models that is made up of 2 blocks, each block containing:
-        - two 2D Convolutional layers that use:
+        - two 2D Convolutional Layers that use:
             - 32 and 64 filters for the first and second blocks
             - (3,3) size filters
             - Rectified Linear Unit (ReLU) activation
             - He uniform variance scaling initializer
-            - padding to be sure that the shape of the outputs matches that of the inputs
-        - a Batch Normalization layer to accelerate training process
+            - Padding to be sure that the shape of the outputs matches that of the inputs
+        - a Batch Normalization Layer to accelerate training process
         - a 2D Pooling Layer that downscales the image by 2 horizontally and vertically
-        - a Dropout Layer to add some regularization to the model. I added more dropout to the second block than to the first
+        - a Dropout Layer to add some regularization to the model and avoid overfitting. I added more dropout to the second block than to the first
 
     These blocks are followed by a classifier that is made of:
-        - a Flatten layer to flatten the input for the following Dense layer
-        - a first Dense layer which is a usual fully connected neural network layer with ReLU activation
-        - a final Dense layer that generates predictions with a softmax activation
+        - a Flatten Layer to flatten the input for the following Dense layer
+        - a first Dense Layer which is a usual fully connected neural network layer with ReLU activation
+        - a final Dense Layer that generates predictions with a softmax activation
 
     The model is compiled with :
-        - a categorical crossentropy loss given the multiclass task
+        - a Categorical Crossentropy Loss given the multiclass task
         - a Stochastic Gradient Descent optimizer
-        - an accuracy metric because the class are evenly distributed within the dataset
+        - an Accuracy metric because the class are evenly distributed within the dataset
     """
 
     # Sequential Model
