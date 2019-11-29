@@ -70,4 +70,4 @@ With this model, trained with batch_size = 32 and epochs = 50, I obtained the fo
     - Loss = 0.74
     - Accuracy =  0.76
 
-![](outputs/2_blocks_20_epochs.png "Learning Curves")
+![](outputs/2_blocks_20_epochs_plots.png "Learning Curves")
