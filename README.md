@@ -65,7 +65,7 @@ I trained the model by using:
 
 ## Results
 
-With this model, trained with batch_size = 32 and epochs = 20, I obtained the following results:
+With this model, trained with batch_size = 32 and epochs = 20, I obtained the following results on the test dataset:
 
     - Loss = 0.74
     - Accuracy =  0.76
