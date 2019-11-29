@@ -1,6 +1,6 @@
 from keras.models import Sequential
 from keras.optimizers import SGD
-from keras.layers import Conv2D, Dense, Dropout, Flatten, MaxPooling2D
+from keras.layers import Conv2D, Dense, Dropout, Flatten, MaxPooling2D, BatchNormalization
 
 from src.parameters import CONSTANTS, TRAINING_PARAMETERS
 
@@ -16,7 +16,8 @@ def classifier_model():
             - Rectified Linear Unit (ReLU) activation
             - He uniform variance scaling initializer
             - padding to be sure that the shape of the outputs matches that of the inputs
-        - a 2D Polling Layer that downscales the image by 2 horizontally and vertically
+        - a Batch Normalization layer to accelerate training process
+        - a 2D Pooling Layer that downscales the image by 2 horizontally and vertically
         - a Dropout Layer to add some regularization to the model. I added more dropout to the second block than to the first
 
     These blocks are followed by a classifier that is made of:
@@ -27,7 +28,7 @@ def classifier_model():
     The model is compiled with :
         - a categorical crossentropy loss given the multiclass task
         - a Stochastic Gradient Descent optimizer
-        - an accuracy metric
+        - an accuracy metric because the class are evenly distributed within the dataset
     """
 
     # Sequential Model
@@ -38,12 +39,14 @@ def classifier_model():
         32, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same', input_shape=CONSTANTS['input_shape'])
     )
     model.add(Conv2D(32, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
+    model.add(BatchNormalization())
     model.add(MaxPooling2D((2, 2)))
     model.add(Dropout(0.25))
 
     # Second Block
     model.add(Conv2D(64, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
     model.add(Conv2D(64, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
+    model.add(BatchNormalization())
     model.add(MaxPooling2D((2, 2)))
     model.add(Dropout(0.35))
 

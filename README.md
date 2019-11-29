@@ -37,7 +37,8 @@ For this project, I ended up using a simple CNN model inspired by the VGG models
     * Rectified Linear Unit (ReLU) activation
     * He uniform variance scaling initializer
     * padding to be sure that the shape of the outputs matches that of the inputs
- - a 2D Polling Layer that downscales the image by 2 horizontally and vertically
+- a Batch Normalization layer to accelerate training process
+- a 2D Polling Layer that downscales the image by 2 horizontally and vertically
 - a Dropout Layer to add some regularization to the model. I added more dropout to the second block than to the first
 
 These blocks are followed by a classifier that is made of:
@@ -48,7 +49,7 @@ These blocks are followed by a classifier that is made of:
 The model is compiled with:
 - Stochastic Gradient Descent Optimizer with learning rate and momentum defined in parameters file
 - a categorical crossentropy loss because we have a multi-class classification task
-- an accuracy metric
+- an accuracy metric because the classes are evenly distributed within the dataset
 
 I trained the model by using:
 - a batch size and number of epochs defined in the parameters file

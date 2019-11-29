@@ -8,7 +8,7 @@ CONSTANTS = {
 
 TRAINING_PARAMETERS = {
     'batch_size': 32,
-    'epochs': 2,
+    'epochs': 20,
     'sgd_learning_rate': 0.001,
     'sgd_momentum': 0.9,
 }

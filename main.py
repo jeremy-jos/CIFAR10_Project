@@ -35,6 +35,6 @@ def predict_main(image_name, model_name):
     print(predictions[0])
 
 
-train_main("test_model_new")
+train_main("2_blocks_20_epochs")
 
 #predict_main("car", "test_model_new")
